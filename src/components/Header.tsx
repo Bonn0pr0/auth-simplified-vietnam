@@ -1,11 +1,26 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, Menu, X } from 'lucide-react';
+import { Heart, Menu, X, User, LogOut } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  // Kiểm tra xem có đang ở trang dashboard không để hiển thị thông tin manager
+  const isLoggedIn = location.pathname === '/dashboard';
+
+  const handleLogout = () => {
+    toast({
+      title: "Đăng xuất thành công!",
+      description: "Hẹn gặp lại bạn.",
+    });
+    navigate('/');
+  };
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -22,6 +37,11 @@ const Header = () => {
             <Link to="/" className="text-gray-600 hover:text-pink-500 transition-colors">
               Trang chủ
             </Link>
+            {isLoggedIn && (
+              <Link to="/dashboard" className="text-gray-600 hover:text-pink-500 transition-colors">
+                Dashboard
+              </Link>
+            )}
             <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
               Dịch vụ
             </Link>
@@ -33,18 +53,38 @@ const Header = () => {
             </Link>
           </nav>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons / User Info */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="outline" className="border-pink-500 text-pink-500 hover:bg-pink-50">
-                Đăng nhập
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button className="bg-pink-500 hover:bg-pink-600 text-white">
-                Đăng ký ngay
-              </Button>
-            </Link>
+            {isLoggedIn ? (
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-gray-700">
+                  <User className="h-4 w-4" />
+                  <span className="text-sm font-medium">Manager</span>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="border-red-500 text-red-500 hover:bg-red-50"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Đăng xuất
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" className="border-pink-500 text-pink-500 hover:bg-pink-50">
+                    Đăng nhập
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button className="bg-pink-500 hover:bg-pink-600 text-white">
+                    Đăng ký ngay
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -69,6 +109,15 @@ const Header = () => {
             >
               Trang chủ
             </Link>
+            {isLoggedIn && (
+              <Link
+                to="/dashboard"
+                className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+            )}
             <Link
               to="#"
               className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
@@ -91,16 +140,38 @@ const Header = () => {
               Liên hệ
             </Link>
             <div className="pt-4 space-y-2">
-              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="outline" className="w-full border-pink-500 text-pink-500 hover:bg-pink-50">
-                  Đăng nhập
-                </Button>
-              </Link>
-              <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full bg-pink-500 hover:bg-pink-600 text-white">
-                  Đăng ký ngay
-                </Button>
-              </Link>
+              {isLoggedIn ? (
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 px-3 py-2 text-gray-700">
+                    <User className="h-4 w-4" />
+                    <span className="text-sm font-medium">Manager</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full border-red-500 text-red-500 hover:bg-red-50"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Đăng xuất
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" className="w-full border-pink-500 text-pink-500 hover:bg-pink-50">
+                      Đăng nhập
+                    </Button>
+                  </Link>
+                  <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                    <Button className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                      Đăng ký ngay
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

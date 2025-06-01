@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,20 +11,31 @@ import { useToast } from '@/hooks/use-toast';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: 'manager@fertilitycare.com',
+    password: '@1'
   });
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Login attempt:', formData);
     
-    // Simulate login
-    toast({
-      title: "Đăng nhập thành công!",
-      description: "Chào mừng bạn quay trở lại.",
-    });
+    // Kiểm tra đăng nhập với tài khoản manager mặc định
+    if (formData.email === 'manager@fertilitycare.com' && formData.password === '@1') {
+      toast({
+        title: "Đăng nhập thành công!",
+        description: "Chào mừng Manager đến với hệ thống quản lý.",
+      });
+      // Điều hướng đến dashboard
+      navigate('/dashboard');
+    } else {
+      toast({
+        title: "Đăng nhập thất bại!",
+        description: "Email hoặc mật khẩu không đúng.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +115,15 @@ const Login = () => {
                 >
                   Quên mật khẩu?
                 </Link>
+              </div>
+
+              {/* Thông tin tài khoản mặc định */}
+              <div className="bg-blue-50 p-3 rounded-md">
+                <p className="text-sm text-blue-700">
+                  <strong>Tài khoản Manager mặc định:</strong><br />
+                  Email: manager@fertilitycare.com<br />
+                  Mật khẩu: @1
+                </p>
               </div>
 
               <Button
