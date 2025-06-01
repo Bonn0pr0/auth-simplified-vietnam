@@ -11,10 +11,11 @@ const Header = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  // Kiểm tra xem có đang ở trang dashboard không để hiển thị thông tin manager
-  const isLoggedIn = location.pathname === '/dashboard';
+  // Kiểm tra xem có đang đăng nhập không dựa trên localStorage hoặc sessionStorage
+  const isLoggedIn = localStorage.getItem('isManagerLoggedIn') === 'true';
 
   const handleLogout = () => {
+    localStorage.removeItem('isManagerLoggedIn');
     toast({
       title: "Đăng xuất thành công!",
       description: "Hẹn gặp lại bạn.",
@@ -34,6 +35,9 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
+            <Link to="/" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Trang chủ
+            </Link>
             {isLoggedIn && (
               <Link to="/dashboard" className="text-gray-600 hover:text-pink-500 transition-colors">
                 Dashboard
@@ -102,6 +106,13 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
+            <Link
+              to="/"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Trang chủ
+            </Link>
             {isLoggedIn && (
               <Link
                 to="/dashboard"
