@@ -1,0 +1,112 @@
+
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Heart, Menu, X } from 'lucide-react';
+
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <header className="bg-white shadow-sm border-b">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <Heart className="h-8 w-8 text-pink-500" />
+            <span className="text-xl font-bold text-gray-900">FertilityCare</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link to="/" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Trang chủ
+            </Link>
+            <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Dịch vụ
+            </Link>
+            <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Về chúng tôi
+            </Link>
+            <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Liên hệ
+            </Link>
+          </nav>
+
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link to="/login">
+              <Button variant="outline" className="border-pink-500 text-pink-500 hover:bg-pink-50">
+                Đăng nhập
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button className="bg-pink-500 hover:bg-pink-600 text-white">
+                Đăng ký ngay
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 space-y-2">
+            <Link
+              to="/"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Trang chủ
+            </Link>
+            <Link
+              to="#"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Dịch vụ
+            </Link>
+            <Link
+              to="#"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Về chúng tôi
+            </Link>
+            <Link
+              to="#"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Liên hệ
+            </Link>
+            <div className="pt-4 space-y-2">
+              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="outline" className="w-full border-pink-500 text-pink-500 hover:bg-pink-50">
+                  Đăng nhập
+                </Button>
+              </Link>
+              <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                <Button className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                  Đăng ký ngay
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
