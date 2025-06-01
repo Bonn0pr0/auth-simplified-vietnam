@@ -34,14 +34,14 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-600 hover:text-pink-500 transition-colors">
-              Trang chủ
-            </Link>
             {isLoggedIn && (
               <Link to="/dashboard" className="text-gray-600 hover:text-pink-500 transition-colors">
                 Dashboard
               </Link>
             )}
+            <Link to="/booking" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Booking
+            </Link>
             <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
               Dịch vụ
             </Link>
@@ -102,13 +102,6 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
-            <Link
-              to="/"
-              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Trang chủ
-            </Link>
             {isLoggedIn && (
               <Link
                 to="/dashboard"
@@ -118,6 +111,13 @@ const Header = () => {
                 Dashboard
               </Link>
             )}
+            <Link
+              to="/booking"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Booking
+            </Link>
             <Link
               to="#"
               className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"

@@ -5,7 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import DoctorManagement from '@/components/DoctorManagement';
 import CustomerManagement from '@/components/CustomerManagement';
-import { Users, UserPlus } from 'lucide-react';
+import DoctorScheduleManagement from '@/components/DoctorScheduleManagement';
+import { Users, UserPlus, Calendar } from 'lucide-react';
 
 const Dashboard = () => {
   const [stats] = useState({
@@ -21,7 +22,7 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Bảng điều khiển quản lý</h1>
-          <p className="text-gray-600">Quản lý bác sĩ và khách hàng của hệ thống</p>
+          <p className="text-gray-600">Quản lý bác sĩ, khách hàng và lịch làm việc của hệ thống</p>
         </div>
 
         {/* Stats Overview */}
@@ -59,7 +60,7 @@ const Dashboard = () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Lịch hẹn đang hoạt động</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-600">{stats.activeAppointments}</div>
@@ -72,14 +73,15 @@ const Dashboard = () => {
           <CardHeader>
             <CardTitle>Quản lý hệ thống</CardTitle>
             <CardDescription>
-              Quản lý thông tin bác sĩ và khách hàng trong hệ thống
+              Quản lý thông tin bác sĩ, khách hàng và lịch làm việc trong hệ thống
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="doctors" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="doctors">Quản lý Bác sĩ</TabsTrigger>
                 <TabsTrigger value="customers">Quản lý Khách hàng</TabsTrigger>
+                <TabsTrigger value="schedules">Lịch làm việc</TabsTrigger>
               </TabsList>
               
               <TabsContent value="doctors" className="mt-6">
@@ -88,6 +90,10 @@ const Dashboard = () => {
               
               <TabsContent value="customers" className="mt-6">
                 <CustomerManagement />
+              </TabsContent>
+
+              <TabsContent value="schedules" className="mt-6">
+                <DoctorScheduleManagement />
               </TabsContent>
             </Tabs>
           </CardContent>
