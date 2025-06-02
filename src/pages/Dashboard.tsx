@@ -1,12 +1,15 @@
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import DoctorManagement from '@/components/DoctorManagement';
 import CustomerManagement from '@/components/CustomerManagement';
 import DoctorScheduleManagement from '@/components/DoctorScheduleManagement';
-import { Users, UserPlus, Calendar } from 'lucide-react';
+import { Users, UserPlus, Calendar, LogOut } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Dashboard = () => {
   const [stats] = useState({
@@ -16,13 +19,35 @@ const Dashboard = () => {
     activeAppointments: 45
   });
 
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isManagerLoggedIn');
+    toast({
+      title: "Đăng xuất thành công!",
+      description: "Hẹn gặp lại bạn.",
+    });
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Bảng điều khiển quản lý</h1>
-          <p className="text-gray-600">Quản lý bác sĩ, khách hàng và lịch làm việc của hệ thống</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Bảng điều khiển quản lý</h1>
+            <p className="text-gray-600">Quản lý bác sĩ, khách hàng và lịch làm việc của hệ thống</p>
+          </div>
+          <Button
+            variant="outline"
+            onClick={handleLogout}
+            className="border-red-500 text-red-500 hover:bg-red-50"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Đăng xuất
+          </Button>
         </div>
 
         {/* Stats Overview */}
