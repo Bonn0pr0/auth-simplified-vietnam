@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -23,6 +22,9 @@ const Login = () => {
     
     // Kiểm tra đăng nhập với tài khoản manager mặc định
     if (formData.email === 'manager@fertilitycare.com' && formData.password === '@1') {
+      // Set localStorage để đánh dấu đã đăng nhập
+      localStorage.setItem('isManagerLoggedIn', 'true');
+      
       toast({
         title: "Đăng nhập thành công!",
         description: "Chào mừng Manager đến với hệ thống quản lý.",
