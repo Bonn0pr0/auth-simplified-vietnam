@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Header from '@/components/Header';
-import { Heart, Calendar, FileText } from 'lucide-react';
+import { Heart, Calendar, Users, Stethoscope } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ServiceRegistration = () => {
@@ -18,7 +18,6 @@ const ServiceRegistration = () => {
     phone: '',
     email: '',
     preferredDate: '',
-    medicalHistory: '',
     notes: ''
   });
 
@@ -48,43 +47,37 @@ const ServiceRegistration = () => {
           <p className="text-gray-600">Điền thông tin để đăng ký tư vấn và điều trị</p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Service Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <Heart className="w-8 h-8 text-pink-500" />
-                  <div>
-                    <CardTitle>IUI - Thụ tinh trong tử cung</CardTitle>
-                    <CardDescription>Phương pháp hỗ trợ sinh sản đơn giản</CardDescription>
-                  </div>
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Heart className="w-12 h-12 text-pink-500" />
                 </div>
+                <CardTitle>IUI - Thụ tinh trong tử cung</CardTitle>
+                <CardDescription>Phương pháp hỗ trợ sinh sản đơn giản và hiệu quả, giúp tăng khả năng thụ thai tự nhiên.</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Phương pháp đưa tinh trùng đã được xử lý vào tử cung trong thời gian rụng trứng.
-                </p>
-                <p className="font-semibold text-pink-600">Từ 15.000.000 VNĐ</p>
-              </CardContent>
             </Card>
 
             <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <Heart className="w-8 h-8 text-purple-500" />
-                  <div>
-                    <CardTitle>IVF - Thụ tinh ống nghiệm</CardTitle>
-                    <CardDescription>Công nghệ hỗ trợ sinh sản tiên tiến</CardDescription>
-                  </div>
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Users className="w-12 h-12 text-purple-500" />
                 </div>
+                <CardTitle>IVF - Thụ tinh trong ống nghiệm</CardTitle>
+                <CardDescription>Công nghệ tiên tiến nhất trong hỗ trợ sinh sản, mang lại hy vọng cho các cặp vợ chồng hiếm muộn.</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Thụ tinh trứng và tinh trùng trong phòng thí nghiệm, sau đó chuyển phôi vào tử cung.
-                </p>
-                <p className="font-semibold text-purple-600">Từ 80.000.000 VNĐ</p>
-              </CardContent>
+            </Card>
+
+            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Stethoscope className="w-12 h-12 text-blue-500" />
+                </div>
+                <CardTitle>Tư vấn chuyên sâu</CardTitle>
+                <CardDescription>Đội ngũ bác sĩ giàu kinh nghiệm tư vấn và đồng hành cùng bạn trong hành trình làm cha mẹ.</CardDescription>
+              </CardHeader>
             </Card>
           </div>
 
@@ -108,7 +101,7 @@ const ServiceRegistration = () => {
                       <SelectContent>
                         <SelectItem value="iui">IUI - Thụ tinh trong tử cung</SelectItem>
                         <SelectItem value="ivf">IVF - Thụ tinh ống nghiệm</SelectItem>
-                        <SelectItem value="consultation">Tư vấn ban đầu</SelectItem>
+                        <SelectItem value="consultation">Tư vấn chuyên sâu</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -161,17 +154,6 @@ const ServiceRegistration = () => {
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="medicalHistory">Tiền sử bệnh</Label>
-                  <Textarea
-                    id="medicalHistory"
-                    value={formData.medicalHistory}
-                    onChange={(e) => handleChange('medicalHistory', e.target.value)}
-                    placeholder="Mô tả tiền sử bệnh, các điều trị trước đó..."
-                    rows={3}
-                  />
-                </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="notes">Ghi chú thêm</Label>
                   <Textarea
