@@ -38,30 +38,15 @@ const Header = () => {
             <Link to="/" className="text-gray-600 hover:text-pink-500 transition-colors">
               Trang chủ
             </Link>
-            {isLoggedIn && (
-              <Link to="/dashboard" className="text-gray-600 hover:text-pink-500 transition-colors">
-                Dashboard
-              </Link>
-            )}
-            <Link to="/services" className="text-gray-600 hover:text-pink-500 transition-colors">
-              Dịch vụ
-            </Link>
-            <Link to="/service-registration" className="text-gray-600 hover:text-pink-500 transition-colors">
-              Đăng ký IUI/IVF
-            </Link>
             <Link to="/booking" className="text-gray-600 hover:text-pink-500 transition-colors">
               Booking
             </Link>
-            {isLoggedIn && (
-              <>
-                <Link to="/profile" className="text-gray-600 hover:text-pink-500 transition-colors">
-                  Hồ sơ
-                </Link>
-                <Link to="/treatment-progress" className="text-gray-600 hover:text-pink-500 transition-colors">
-                  Theo dõi điều trị
-                </Link>
-              </>
-            )}
+            <Link to="/services" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Dịch vụ
+            </Link>
+            <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
+              Về chúng tôi
+            </Link>
             <Link to="#" className="text-gray-600 hover:text-pink-500 transition-colors">
               Liên hệ
             </Link>
@@ -123,15 +108,13 @@ const Header = () => {
             >
               Trang chủ
             </Link>
-            {isLoggedIn && (
-              <Link
-                to="/dashboard"
-                className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
-            )}
+            <Link
+              to="/booking"
+              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Booking
+            </Link>
             <Link
               to="/services"
               className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
@@ -140,37 +123,12 @@ const Header = () => {
               Dịch vụ
             </Link>
             <Link
-              to="/service-registration"
+              to="#"
               className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Đăng ký IUI/IVF
+              Về chúng tôi
             </Link>
-            <Link
-              to="/booking"
-              className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Booking
-            </Link>
-            {isLoggedIn && (
-              <>
-                <Link
-                  to="/profile"
-                  className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Hồ sơ
-                </Link>
-                <Link
-                  to="/treatment-progress"
-                  className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Theo dõi điều trị
-                </Link>
-              </>
-            )}
             <Link
               to="#"
               className="block px-3 py-2 text-gray-600 hover:text-pink-500 transition-colors"
