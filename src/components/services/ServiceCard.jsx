@@ -4,23 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Clock, Star, CheckCircle } from 'lucide-react';
 
-interface Service {
-  id: number;
-  name: string;
-  category: string;
-  price: string;
-  duration: string;
-  successRate: string;
-  description: string;
-  features: string[];
-}
-
-interface ServiceCardProps {
-  service: Service;
-  getCategoryColor: (category: string) => string;
-}
-
-const ServiceCard = ({ service, getCategoryColor }: ServiceCardProps) => {
+const ServiceCard = ({ service, getCategoryColor }) => {
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader>

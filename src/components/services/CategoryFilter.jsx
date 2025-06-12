@@ -1,19 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 
-interface Category {
-  id: string;
-  name: string;
-  count: number;
-}
-
-interface CategoryFilterProps {
-  categories: Category[];
-  selectedCategory: string;
-  onCategoryChange: (categoryId: string) => void;
-}
-
-const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) => {
+const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
   return (
     <div className="mb-8">
       <div className="flex flex-wrap gap-3 justify-center">

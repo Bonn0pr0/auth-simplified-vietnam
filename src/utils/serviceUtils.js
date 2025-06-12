@@ -1,5 +1,5 @@
 
-export const getCategoryColor = (category: string) => {
+export const getCategoryColor = (category) => {
   switch (category) {
     case 'basic': return 'bg-green-100 text-green-800';
     case 'advanced': return 'bg-blue-100 text-blue-800';

@@ -17,7 +17,7 @@ const Services = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedService, setSelectedService] = useState('');
 
-  const handleServiceClick = (serviceType: string) => {
+  const handleServiceClick = (serviceType) => {
     setSelectedService(serviceType);
     setIsDialogOpen(true);
   };

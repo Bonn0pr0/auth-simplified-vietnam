@@ -8,12 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-export interface ServiceRegistrationFormProps {
-  initialServiceType?: string;
-  onComplete?: () => void;
-}
-
-export const ServiceRegistrationForm = ({ initialServiceType = '', onComplete }: ServiceRegistrationFormProps) => {
+export const ServiceRegistrationForm = ({ initialServiceType = '', onComplete }) => {
   const [formData, setFormData] = useState({
     serviceType: initialServiceType,
     patientName: '',
@@ -26,7 +21,7 @@ export const ServiceRegistrationForm = ({ initialServiceType = '', onComplete }:
 
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     toast({
       title: "Đăng ký thành công!",
@@ -38,7 +33,7 @@ export const ServiceRegistrationForm = ({ initialServiceType = '', onComplete }:
     }
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
