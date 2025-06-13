@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import DoctorManagement from '@/components/DoctorManagement';
 import CustomerManagement from '@/components/CustomerManagement';
 import DoctorScheduleManagement from '@/components/DoctorScheduleManagement';
-import ServiceManagement from '@/components/ServiceManagement';
+import ServiceManagement from '@/components/service-management/ServiceManagement';
 import { Users, UserPlus, Calendar } from 'lucide-react';
 
 const Dashboard = () => {
