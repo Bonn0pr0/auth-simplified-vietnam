@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -74,15 +73,14 @@ const Dashboard = () => {
           <CardHeader>
             <CardTitle>Quản lý hệ thống</CardTitle>
             <CardDescription>
-              Quản lý thông tin bác sĩ, khách hàng, dịch vụ và lịch làm việc trong hệ thống
+              Quản lý thông tin bác sĩ, khách hàng và lịch làm việc trong hệ thống
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="doctors" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="doctors">Quản lý Bác sĩ</TabsTrigger>
                 <TabsTrigger value="customers">Quản lý Khách hàng</TabsTrigger>
-                <TabsTrigger value="services">Quản lý Dịch vụ</TabsTrigger>
                 <TabsTrigger value="schedules">Lịch làm việc</TabsTrigger>
               </TabsList>
               
@@ -92,10 +90,6 @@ const Dashboard = () => {
               
               <TabsContent value="customers" className="mt-6">
                 <CustomerManagement />
-              </TabsContent>
-
-              <TabsContent value="services" className="mt-6">
-                <ServiceManagement />
               </TabsContent>
 
               <TabsContent value="schedules" className="mt-6">
