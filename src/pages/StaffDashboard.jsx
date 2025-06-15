@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import AppointmentManagement from '@/components/AppointmentManagement';
-import ServiceManagement from '@/components/ServiceManagement';
+import ServiceManagement from '@/components/service-management/ServiceManagement';
 import { Calendar, Settings, User, LogOut, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
