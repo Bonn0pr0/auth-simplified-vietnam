@@ -1,42 +1,66 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Heart, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    role: 'manager',
     email: 'manager@fertilitycare.com',
     password: '@1'
   });
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  const handleRoleChange = (role: string) => {
+    setFormData({
+      role,
+      email: role === 'manager' ? 'manager@fertilitycare.com' : 'staff@fertilitycare.com',
+      password: '@1'
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Login attempt:', formData);
     
-    // Kiểm tra đăng nhập với tài khoản manager mặc định
-    if (formData.email === 'manager@fertilitycare.com' && formData.password === '@1') {
-      // Set localStorage để đánh dấu đã đăng nhập
-      localStorage.setItem('isManagerLoggedIn', 'true');
-      
-      toast({
-        title: "Đăng nhập thành công!",
-        description: "Chào mừng Manager đến với hệ thống quản lý.",
-      });
-      // Điều hướng đến dashboard
-      navigate('/dashboard');
+    if (formData.role === 'manager') {
+      if (formData.email === 'manager@fertilitycare.com' && formData.password === '@1') {
+        localStorage.setItem('isManagerLoggedIn', 'true');
+        toast({
+          title: "Đăng nhập thành công!",
+          description: "Chào mừng Manager đến với hệ thống quản lý.",
+        });
+        navigate('/dashboard');
+      } else {
+        toast({
+          title: "Đăng nhập thất bại!",
+          description: "Email hoặc mật khẩu Manager không đúng.",
+          variant: "destructive",
+        });
+      }
     } else {
-      toast({
-        title: "Đăng nhập thất bại!",
-        description: "Email hoặc mật khẩu không đúng.",
-        variant: "destructive",
-      });
+      if (formData.email === 'staff@fertilitycare.com' && formData.password === '@1') {
+        localStorage.setItem('isStaffLoggedIn', 'true');
+        toast({
+          title: "Đăng nhập thành công!",
+          description: "Chào mừng Staff đến với hệ thống quản lý.",
+        });
+        navigate('/staff-dashboard');
+      } else {
+        toast({
+          title: "Đăng nhập thất bại!",
+          description: "Email hoặc mật khẩu Staff không đúng.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -48,7 +72,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-blue-50 to-green-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         {/* Logo */}
         <div className="text-center">
@@ -62,11 +86,24 @@ const Login = () => {
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Đăng nhập</CardTitle>
             <CardDescription className="text-center">
-              Nhập thông tin của bạn để truy cập tài khoản
+              Chọn vai trò và nhập thông tin để truy cập hệ thống
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="role">Vai trò</Label>
+                <Select value={formData.role} onValueChange={handleRoleChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Chọn vai trò" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="manager">Manager</SelectItem>
+                    <SelectItem value="staff">Staff</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -120,19 +157,19 @@ const Login = () => {
               </div>
 
               {/* Thông tin tài khoản mặc định */}
-              <div className="bg-blue-50 p-3 rounded-md">
-                <p className="text-sm text-blue-700">
-                  <strong>Tài khoản Manager mặc định:</strong><br />
-                  Email: manager@fertilitycare.com<br />
+              <div className={`p-3 rounded-md ${formData.role === 'manager' ? 'bg-pink-50' : 'bg-blue-50'}`}>
+                <p className={`text-sm ${formData.role === 'manager' ? 'text-pink-700' : 'text-blue-700'}`}>
+                  <strong>Tài khoản {formData.role === 'manager' ? 'Manager' : 'Staff'} mặc định:</strong><br />
+                  Email: {formData.role === 'manager' ? 'manager@fertilitycare.com' : 'staff@fertilitycare.com'}<br />
                   Mật khẩu: @1
                 </p>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-pink-500 hover:bg-pink-600 text-white"
+                className={`w-full text-white ${formData.role === 'manager' ? 'bg-pink-500 hover:bg-pink-600' : 'bg-blue-500 hover:bg-blue-600'}`}
               >
-                Đăng nhập
+                Đăng nhập {formData.role === 'manager' ? 'Manager' : 'Staff'}
               </Button>
             </form>
 
